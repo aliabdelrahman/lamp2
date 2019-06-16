@@ -10,7 +10,7 @@ package "php-mysql" do
   action :install
 end
 
-cookbook_file "/etc/php/7.0/cli/php.ini" do
+cookbook_file "/etc/php/7.2/cli/php.ini" do
   source "php.ini"
   mode "0644"
   notifies :restart, "service[apache2]"
