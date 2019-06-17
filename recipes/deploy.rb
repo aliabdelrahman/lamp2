@@ -10,41 +10,21 @@ else
 end
 
 
-  execute 'git clone' do
-    user app_user
-    group app_group
-    cwd app_path
-    command "git clone -b #{app['app_source']['revision']} #{app['app_source']['url']} ."
-    creates "#{app_path}/.git"
+git app_path do
+    repository app["app_source"]["url"]
+    revision app["app_source"]["revision"]
   end
 
-  execute 'git reset' do
-    user app_user
-    group app_group
-    cwd app_path
-    command "git reset --hard"
-    ignore_failure true
+  link "#{app_path}/server.js" do
+    to "#{app_path}/index.js"
   end
 
-  execute 'fetch data' do
-    user app_user
-    group app_group
-    cwd app_path
-    command "git fetch"
+  npm_install do
+    retries 3
+    retry_delay 10
   end
 
-  execute 'switch branch' do
-    user app_user
-    group app_group
-    cwd app_path
-    command "git checkout #{app['app_source']['revision']}"
+  npm_start do
+    action [:stop, :enable, :start]
   end
-
-  execute 'git pull' do
-    user app_user
-    group app_group
-    cwd app_path
-    command "git pull"
-  end
-
 
