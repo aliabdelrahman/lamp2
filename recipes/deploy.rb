@@ -1,8 +1,8 @@
 app = search("aws_opsworks_app").first
-application "#{app['aplamp']}" do
+application "#{app['shortname']}" do
   owner 'root'
   group 'root'
-  repository app['app_source']['git@github.com:aliabdelrahman/test1.git']
+  repository app['app_source']['url']
   revision   'master'
-  path "/var/www/html/public_html/#{app['aplamp']}"
+  path "/srv/#{app['shortname']}"
 end
