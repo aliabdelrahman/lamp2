@@ -1,5 +1,5 @@
 app = search(:aws_opsworks_app).first
-app_path = "/var/www/html/public_html/#{app['shortname']}"
+app_path = "/var/www/html/example.com/public_html/#{app['shortname']}"
 
 package "git" do
   # workaround for:
