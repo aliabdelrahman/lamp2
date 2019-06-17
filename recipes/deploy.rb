@@ -15,9 +15,6 @@ git app_path do
     revision app["app_source"]["revision"]
   end
 
-  link "#{app_path}/server.js" do
-    to "#{app_path}/index.js"
-  end
 
   npm_install do
     retries 3
