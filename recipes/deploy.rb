@@ -10,20 +10,28 @@ else
 end
 
 
-file "/home/#{app_user}/git_id_rsa" do
+directory "/home#{app_user}/.ssh" do
+  owner app_user
+  group app_group
+  action :create
+  recursive true
+end
+
+
+file "/home#{app_user}/git_id_rsa" do
   owner app_user
   group app_group
   mode "0700"
   content app["app_source"]["ssh_key"]
 end
 
-file "/home/#{app_user}/.ssh/config" do
+file "/home#{app_user}/.ssh/config" do
   owner app_user
   group app_group
   mode "0644"
   content "Host #{node['repository_host']}
 HostName #{node['repository_host']}
-IdentityFile /home/#{app_user}/git_id_rsa
+IdentityFile /home#{app_user}/git_id_rsa
 User git
 
 StrictHostKeyChecking no
