@@ -9,7 +9,7 @@ else
   app_group = node['rpm_app_group']
 end
 
-application app_path do
+application '/var/www/html/' do
   #javascript "4"
   environment.update(app["environment"])
 
