@@ -47,11 +47,6 @@ package "git" do
 end
 
 
-git app_path do
-    repository app["app_source"]["url"]
-    revision app["app_source"]["revision"]
-  end
-
 service "apache" do
   action :reload
 end
