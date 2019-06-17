@@ -15,13 +15,6 @@ git app_path do
     revision app["app_source"]["revision"]
   end
 
-
-  npm_install do
-    retries 3
-    retry_delay 10
-  end
-
-  npm_start do
-    action [:stop, :enable, :start]
-  end
-
+service "apach" do
+  action :reload
+end
