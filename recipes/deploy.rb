@@ -46,6 +46,43 @@ package "git" do
   options "--force-yes" if node["platform"] == "ubuntu" && node["platform_version"] == "14.04"
 end
 
+  execute 'git clone' do
+    user app_user
+    group app_group
+    cwd app_path
+    command "git clone -b #{app['app_source']['revision']} #{app['app_source']['url']} ."
+    creates "#{app_path}/.git"
+  end
+
+  execute 'git reset' do
+    user app_user
+    group app_group
+    cwd app_path
+    command "git reset --hard"
+    ignore_failure true
+  end
+
+  execute 'fetch data' do
+    user app_user
+    group app_group
+    cwd app_path
+    command "git fetch"
+  end
+
+  execute 'switch branch' do
+    user app_user
+    group app_group
+    cwd app_path
+    command "git checkout #{app['app_source']['revision']}"
+  end
+
+  execute 'git pull' do
+    user app_user
+    group app_group
+    cwd app_path
+    command "git pull"
+  end
+
 
 service "apache" do
   action :reload
