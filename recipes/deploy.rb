@@ -35,3 +35,26 @@ application app_path do
     command "git reset --hard"
     ignore_failure true
   end
+
+  execute 'fetch data' do
+    user app_user
+    group app_group
+    cwd app_path
+    command "git fetch"
+  end
+
+  execute 'switch branch' do
+    user app_user
+    group app_group
+    cwd app_path
+    command "git checkout #{app['app_source']['revision']}"
+  end
+
+  execute 'git pull' do
+    user app_user
+    group app_group
+    cwd app_path
+    command "git pull"
+  end
+
+end
