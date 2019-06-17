@@ -9,16 +9,6 @@ else
   app_group = node['rpm_app_group']
 end
 
-application '/var/www/html/' do
-  #javascript "4"
-  environment.update(app["environment"])
-
-#  git app_path do
-#    user app_user
-#    group app_group
-#    repository app["app_source"]["url"]
-#    #revision app["app_source"]["revision"]
-#  end
 
   execute 'git clone' do
     user app_user
@@ -57,4 +47,4 @@ application '/var/www/html/' do
     command "git pull"
   end
 
-end
+
